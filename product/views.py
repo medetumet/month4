@@ -12,3 +12,13 @@ def products_view(request):
             'product': products,
         }
         return render(request, 'product/product.html', context=dict)
+
+def product_detail_view(request, id):
+    if request.method == "GET":
+        product = Product.objects.get(id=id)
+        reviews = Review.objects.filter(product=product)
+        dict = {
+            'product': product,
+            'reviews': reviews
+        }
+        return render(request, 'product/detail.html', context=dict)
