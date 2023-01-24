@@ -1,0 +1,22 @@
+{% extends 'layouts/index.html' %}
+
+{% block content %}
+    <style type="text/css">
+        .products {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-left: 10%;
+        }
+    </style>
+    <div class="products">
+        {% for categ in category %}
+            <div class="card" style="width: 20%">
+                <div class="card-body">
+                    <h5 class="card-title">{{ categ.name }}</h5>
+                    <a href="/product/?category_id={{ categ.id }}" class="btn btn-primary">More</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -22,3 +22,12 @@ def product_detail_view(request, id):
             'reviews': reviews
         }
         return render(request, 'product/detail.html', context=dict)
+
+def category_view(request):
+    if request.method == "GET":
+        category = Category.objects.all()
+        dict = {
+            'category': category,
+        }
+
+        return render(request, 'product/category.html', context=dict)

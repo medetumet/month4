@@ -1,0 +1,11 @@
+{% extends 'layouts/index.html' %}
+
+{% block content %}
+    <h1>{{ product.title }}</h1>
+    <h1>{{ product.description }}</h1>
+    <h1>{{ product.price }}</h1>
+    <h1>{{ product.created_data }}</h1>
+    {% for review in reviews %}
+        <h1>{{ review.text }}</h1>
+    {% endfor %}
+{% endblock %}

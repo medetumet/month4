@@ -1,4 +1,11 @@
 from django.db import models
+
+class Category(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+
+
+
 class Product(models.Model):
     title = models.CharField(max_length=250)
     price = models.IntegerField()
@@ -12,7 +19,6 @@ class Product(models.Model):
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     text = models.TextField(null=True)
-
 
 
 
