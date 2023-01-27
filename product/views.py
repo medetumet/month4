@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from product.models import *
+from product.forms import *
 
 def main_views(request):
     return render(request, 'layouts/index.html')
@@ -31,3 +32,25 @@ def category_view(request):
         }
 
         return render(request, 'product/category.html', context=dict)
+
+def create_product_view(request):
+    if request.method == 'GET':
+        context = {
+            'form': ProductCreateForm
+        }
+        return render(request, 'product/create.html', context=context)
+
+    if request.method == 'POST':
+        form = ProductCreateForm(data=request.POST)
+
+        if form.is_valid():
+            Product.objects.create(
+                title=form.cleaned_data.get('title'),
+                description=form.cleaned_data.get('description'),
+                price=form.cleaned_data['price'] if form.cleaned_data['price'] is not None else 0,
+
+            )
+            return redirect('/products/')
+        return render(request, 'product/create.html', context={
+            'form': form
+        })
