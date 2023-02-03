@@ -1,25 +1,48 @@
 {% extends 'layouts/index.html' %}
+{% load static %}
+{##}
+{#{% block head %}#}
+{#    <link rel="stylesheet" href="{% static 'product.css' %}">#}
+{#{% endblock %}#}
 
 {% block content %}
-    <style type="text/css">
-        .product {
-            display: flex;
-            justify-content: space-between;
+    .search {
             width: 80%;
             margin-left: 10%;
-            flex-wrap: wrap;
-            padding: 10px;
         }
-    </style>
-    <div class="product">
-        {% for product in product %}
+
+    <div class="search">
+        <form action="/product/" method="get">
+            {% if category_id %}
+                <input type="hidden" name="category_id" value="{{ category_id }}">
+            {% endif %}
+            <span>Search</span>
+            <input type="text" name="search" value="">
+        </form>
+    </div>
+
+    <div class="products">
+        {% for product in products %}
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
+                    {% if product.image %}
+                        <img class="product_img" src="/media/{{ product.image }}/" alt="">
+                    {% else %}
+                        <img class="product_img" src="https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400.png" alt="">
+                    {% endif %}
                     <h5 class="card-title">{{ product.title }}</h5>
-                    <h6 class="card-subtitle">{{ product.created_date }}</h6>
-                    <a href="/products/{{ product.id }}/" class="card-link">More</a>
+                    <h6 class="card-title">{{ product.price }}</h6>
+                    <a href="/product/{{ product.id }}" class="card-link">More</a>
                 </div>
             </div>
         {% endfor %}
     </div>
+        <div class="pages">
+            {% for page in max_page %}
+                <a href="/product/?page={{ page }}">
+                    <button>{{ page }}</button>
+                </a>
+            {% endfor %}
+        </div>
+
 {% endblock %}
