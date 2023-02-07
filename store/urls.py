@@ -22,12 +22,12 @@ from users.views import login_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_view),
-    path('products/', products_view),
-    path('products/<int:id>/', product_detail_view),
+    path('', MainView.as_view()),
+    path('products/', ProductsView.as_view()),
+    path('products/<int:id>/', ProductDetailView.as_view()),
 
-    path('category/', categories_view),
-    path('product/create/', create_product_view),
+    path('category/', CategoryView.as_view()),
+    path('product/create/', CreateView.as_view()),
 
     path('users/login/', login_view)
 ]
